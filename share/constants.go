@@ -111,7 +111,7 @@ func saveRoots(p *rootsPrecomp) {
 	fname := fileNameHash(p.Mod, p.Gen, p.TwoOrder)
 	file, err := os.Create(fname)
 	if err != nil {
-		log.Fatalf("Error saving roots file: ", err)
+		log.Fatalf("Error saving roots file: %v", err)
 	}
 	encoder := gob.NewEncoder(file)
 	encoder.Encode(p)

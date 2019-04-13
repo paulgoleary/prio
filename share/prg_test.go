@@ -3,7 +3,29 @@ package share
 import (
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
+
+func TestTrivial(t *testing.T) {
+
+	mod := big.NewInt(13)
+
+	numServers := 2
+	ordLeader := 0
+	gen := NewGenPRG(numServers, ordLeader)
+
+	v := big.NewInt(7)
+
+	shares := gen.Share(mod, v)
+
+	res := new(big.Int)
+	for i := 0; i < numServers; i++ {
+		res.Add(res, shares[i])
+	}
+	res.Mod(res, mod)
+	require.Equal(t, res, v)
+}
 
 func TestPRG(t *testing.T) {
 	mod := big.NewInt(3123130983042421)
