@@ -135,5 +135,8 @@ func RandomRequest(cfg *config.Config, leaderForReq int) []*ClientRequest {
 		out[s].TripleShare = triples[s]
 	}
 
+	// TODO: side effect :/ - promote to return value?
+	cfg.Circuit = ckt
+
 	return out
 }
